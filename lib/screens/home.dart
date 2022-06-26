@@ -107,16 +107,41 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: Colors.deepPurple,
                     textColor: Colors.white,
                   );
-                } else if (index == 2 ||
-                    index == 3 ||
+                } else if (index == 2) {
+                  return MyButton(
+                    buttonTapped: () {
+                      setState(() {
+                        // prevent double operator, but you can add % after +,*,-,/
+                        if (userQuestion.endsWith('%/') ||
+                            userQuestion.endsWith('%x') ||
+                            userQuestion.endsWith('%-') ||
+                            userQuestion.endsWith('%+')) {
+                          userQuestion = userQuestion.substring(
+                              0, userQuestion.length - 2);
+                        } else if (userQuestion.endsWith('%') ||
+                            userQuestion.endsWith('/') ||
+                            userQuestion.endsWith('x') ||
+                            userQuestion.endsWith('-') ||
+                            userQuestion.endsWith('+')) {
+                          userQuestion = userQuestion.substring(
+                              0, userQuestion.length - 1);
+                        }
+                        userQuestion += buttons[index];
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.deepPurple,
+                    textColor: Colors.white,
+                  );
+                } else if (index == 3 ||
                     index == 7 ||
                     index == 11 ||
                     index == 15) {
                   return MyButton(
                     buttonTapped: () {
                       setState(() {
-                        if (userQuestion.endsWith('%') ||
-                            userQuestion.endsWith('/') ||
+                        // prevent double operator
+                        if (userQuestion.endsWith('/') ||
                             userQuestion.endsWith('x') ||
                             userQuestion.endsWith('-') ||
                             userQuestion.endsWith('+')) {
@@ -150,14 +175,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // remove unneceassary trailing zeros
   removeTrailingZeros(String n) {
     return n.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "");
   }
 
   void equelPressed() {
     String finalQuestion = userQuestion;
-    finalQuestion = finalQuestion.replaceAll('x', '*');
-    finalQuestion = finalQuestion.replaceAll('%', '*0.01');
+    finalQuestion = finalQuestion.replaceAll('x', '*'); // replacing x with *
+    finalQuestion =
+        finalQuestion.replaceAll('%', '*0.01'); // replacing % with *0.01
     Parser p = Parser();
     Expression exp = p.parse(finalQuestion);
     ContextModel cm = ContextModel();
