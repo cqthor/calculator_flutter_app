@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers
-
 import 'package:calculator_app/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -40,130 +38,117 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // var userAnswer = MediaQuery.of(context).size.height.toString();
     return Scaffold(
       backgroundColor: Colors.deepPurple[100],
       body: Column(
         children: [
           Expanded(
-            child: Container(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.065),
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.all(20),
-                      child: Text(
-                        userQuestion,
-                        style: const TextStyle(fontSize: 20),
-                      ),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.065),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.all(20),
+                    child: Text(
+                      userQuestion,
+                      style: const TextStyle(fontSize: 20),
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        userAnswer,
-                        style: const TextStyle(fontSize: 20),
-                      ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(20),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      userAnswer,
+                      style: const TextStyle(fontSize: 20),
                     ),
-                  ]),
-            ),
+                  ),
+                ]),
           ),
           Expanded(
             flex: 2,
-            child: Container(
-              child: GridView.builder(
-                itemCount: buttons.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4),
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    return MyButton(
-                      buttonTapped: () {
-                        setState(() {
-                          userQuestion = '';
-                          userAnswer = '';
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.green,
-                      textColor: Colors.white,
-                    );
-                  } else if (index == 1) {
-                    return MyButton(
-                      buttonTapped: () {
-                        setState(() {
+            child: GridView.builder(
+              itemCount: buttons.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4),
+              itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return MyButton(
+                    buttonTapped: () {
+                      setState(() {
+                        userQuestion = '';
+                        userAnswer = '';
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.green,
+                    textColor: Colors.white,
+                  );
+                } else if (index == 1) {
+                  return MyButton(
+                    buttonTapped: () {
+                      setState(() {
+                        userQuestion =
+                            userQuestion.substring(0, userQuestion.length - 1);
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.red,
+                    textColor: Colors.white,
+                  );
+                } else if (index == 19) {
+                  return MyButton(
+                    buttonTapped: () {
+                      setState(() {
+                        equelPressed();
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.deepPurple,
+                    textColor: Colors.white,
+                  );
+                } else if (index == 2 ||
+                    index == 3 ||
+                    index == 7 ||
+                    index == 11 ||
+                    index == 15) {
+                  return MyButton(
+                    buttonTapped: () {
+                      setState(() {
+                        if (userQuestion.endsWith('%') ||
+                            userQuestion.endsWith('/') ||
+                            userQuestion.endsWith('x') ||
+                            userQuestion.endsWith('-') ||
+                            userQuestion.endsWith('+')) {
                           userQuestion = userQuestion.substring(
                               0, userQuestion.length - 1);
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.red,
-                      textColor: Colors.white,
-                    );
-                  } else if (index == 19) {
-                    return MyButton(
-                      buttonTapped: () {
-                        setState(() {
-                          equelPressed();
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.deepPurple,
-                      textColor: Colors.white,
-                    );
-                  } else if (index == 2 ||
-                      index == 3 ||
-                      index == 7 ||
-                      index == 11 ||
-                      index == 15) {
-                    return MyButton(
-                      buttonTapped: () {
-                        setState(() {
-                          if (userQuestion.endsWith('%') ||
-                              userQuestion.endsWith('/') ||
-                              userQuestion.endsWith('x') ||
-                              userQuestion.endsWith('-') ||
-                              userQuestion.endsWith('+')) {
-                            userQuestion = userQuestion.substring(
-                                0, userQuestion.length - 1);
-                          }
-                          userQuestion += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.deepPurple,
-                      textColor: Colors.white,
-                    );
-                  } else {
-                    return MyButton(
-                      buttonTapped: () {
-                        setState(() {
-                          userQuestion += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                      color: Colors.deepPurple[50],
-                      textColor: Colors.deepPurple,
-                    );
-                  }
-                },
-              ),
+                        }
+                        userQuestion += buttons[index];
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.deepPurple,
+                    textColor: Colors.white,
+                  );
+                } else {
+                  return MyButton(
+                    buttonTapped: () {
+                      setState(() {
+                        userQuestion += buttons[index];
+                      });
+                    },
+                    buttonText: buttons[index],
+                    color: Colors.deepPurple[50],
+                    textColor: Colors.deepPurple,
+                  );
+                }
+              },
             ),
           ),
         ],
       ),
     );
   }
-
-  // bool isOperator(String o) {
-  //   if (o == '%' || o == '/' || o == '+' || o == '-' || o == 'x' || o == '=') {
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
   removeTrailingZeros(String n) {
     return n.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "");
