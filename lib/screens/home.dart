@@ -145,12 +145,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       buttonText: buttons[index],
-                      color: isOperator(buttons[index])
-                          ? Colors.deepPurple
-                          : Colors.deepPurple[50],
-                      textColor: isOperator(buttons[index])
-                          ? Colors.white
-                          : Colors.deepPurple,
+                      color: Colors.deepPurple[50],
+                      textColor: Colors.deepPurple,
                     );
                   }
                 },
@@ -162,12 +158,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  bool isOperator(String o) {
-    if (o == '%' || o == '/' || o == '+' || o == '-' || o == 'x' || o == '=') {
-      return true;
-    }
-    return false;
-  }
+  // bool isOperator(String o) {
+  //   if (o == '%' || o == '/' || o == '+' || o == '-' || o == 'x' || o == '=') {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   removeTrailingZeros(String n) {
     return n.replaceAll(RegExp(r"([.]*0+)(?!.*\d)"), "");
